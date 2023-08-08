@@ -25,7 +25,7 @@ void Reverser :: reverseDigitHelper(int dg, int& acc){
 
 }
 
-int Reverser :: reverserDigit(int digits){
+int Reverser :: reverseDigit(int digits){
   if(digits < 0){
     return -1;
   }

@@ -8,5 +8,5 @@ class Reverser{
   Reverser();
   std :: string reverseString(std :: string characters);
   void reverseDigitHelper(int dg, int& acc);
-  int reverserDigit(int digits);
+  int reverseDigit(int digits);
 };
