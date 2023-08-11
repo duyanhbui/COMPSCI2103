@@ -1,22 +1,25 @@
 #include "EfficientTruckloads.h"
 
 
-void EfficientTruckloads :: numTrucks_Helper(int numCrates, int loadSize, int& acc){
-  if(numCrates <= loadSize){
-    acc += 1;
-    return;
+int EfficientTruckloads :: numTrucks(int numCrates, int loadSize){
+  static std :: unordered_map<int,int> cache;
+  std :: unordered_map<int,int> :: iterator it;
+
+  // for( auto it = cache.begin(); it != cache.end(); ++it){
+  //   std :: cout << " numCrates: " << it->first << "| numT: " << it->second;
+  // }
+  std :: cout << std :: endl;
+  it = cache.find(numCrates);
+  if( it != cache.end()){
+    return it->second;
   }
 
-  int temp = numCrates/2;
-  numTrucks_Helper(temp,loadSize,acc);
-  numTrucks_Helper(numCrates-temp,loadSize,acc);
-
-}
-
-
-int EfficientTruckloads :: numTrucks(int numCrates, int loadSize){
-  int acc = 0;
-  numTrucks_Helper(numCrates, loadSize, acc);
-
-  return acc;
+  if(numCrates <= loadSize){
+    cache.insert(std :: pair<int,int>(numCrates,1));
+    return 1;
+  }
+  int halve = numCrates/2;
+  int numT = numTrucks(halve,loadSize) + numTrucks(numCrates-halve, loadSize);
+  cache.insert(std :: pair<int,int>(numCrates,numT));
+  return numT;
 }
